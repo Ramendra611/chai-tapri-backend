@@ -24,7 +24,6 @@ class MenuItemResponse(BaseModel):
     description: Optional[str]
     is_available: bool
 
-
 class MenuItemCreate(BaseModel):
     name: str
     category: str
@@ -159,13 +158,8 @@ def create_menu_item(item: MenuItemCreate):
         "SELECT * FROM menu_items WHERE id = ?", (new_id,)).fetchone()
 
     conn.close()
-
-
-    response_dict = dict(row)
-    print(f"{response_dict=}")
-    response_dict.pop("name")
-    print(f"{response_dict=}")
-    return response_dict
+    
+    return dict(row)
 
 
 @app.put("/menu/{item_id}", response_model= MenuItemResponse)
